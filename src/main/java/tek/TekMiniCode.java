@@ -58,10 +58,10 @@ public class TekMiniCode {
         List<Integer> list=new ArrayList<Integer>();
         for(int i=0;i<arr.length;i++){
             if(arr[i]%10>0){
-                if(arr[i]/10>1)list.add(arr[i]/10);
-                if(arr[i]%10>1)list.add(arr[i]%10);
+                if(arr[i]/10>1){list.add(arr[i]/10);}
+                if(arr[i]%10>1){list.add(arr[i]%10);}
             }else{
-                if(arr[i]>1)list.add(arr[i]);
+                if(arr[i]>1){list.add(arr[i]);}
             }
         }
         return Arrays.stream(list.toArray(new Integer[list.size()])).mapToInt(Integer::valueOf).toArray();
