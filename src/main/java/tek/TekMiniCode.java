@@ -1,5 +1,7 @@
 package tek;
 
+import com.sun.deploy.util.StringUtils;
+
 import java.util.*;
 
 /**
@@ -10,28 +12,28 @@ import java.util.*;
  */
 public class TekMiniCode {
 
-    private static Map<Integer,String> getNumMap(){
-        Map<Integer,String> map=new HashMap<Integer,String>();
-        map.put(2,"a,b,c");
-        map.put(3,"d,e,f");
-        map.put(4,"g,h,i");
-        map.put(5,"j,k,l");
-        map.put(6,"m,n,o");
-        map.put(7,"p,q,r,s");
-        map.put(8,"t,u,v");
-        map.put(9,"w,x,y,z");
+    private static Map<Integer,String[]> getNumMap(){
+        Map<Integer,String[]> map=new HashMap<Integer,String[]>();
+        map.put(2,new String[]{"a","b","c"});
+        map.put(3,new String[]{"d","e","f"});
+        map.put(4,new String[]{"g","h","i"});
+        map.put(5,new String[]{"j","k","l"});
+        map.put(6,new String[]{"m","n","o"});
+        map.put(7,new String[]{"p","q","r","s"});
+        map.put(8,new String[]{"t","u","v"});
+        map.put(9,new String[]{"w","x","y","z"});
         return map;
     }
 
     public static void processData(int[] arr){
         if(arr!=null&&arr.length>0){
-            Map<Integer,String> map=getNumMap();
-            String rightStr="";
+            Map<Integer,String[]> map=getNumMap();
+            String [] rightStr=null;
             arr=arraySplit(arr);
             for(int i=0;i<arr.length;i++){
                 rightStr=ergodic(map.get(arr[i]),rightStr);
             }
-            System.out.println(rightStr.replaceAll(","," "));
+            System.out.println(StringUtils.join(Arrays.asList(rightStr)," "));
         }
     }
 
@@ -41,16 +43,16 @@ public class TekMiniCode {
      * @param rightStr
      * @return
      */
-    private static String ergodic(String leftStr,String rightStr){
-        String [] leftStrs=leftStr!=null?leftStr.split(","):new String[]{};
-        String [] rightStrs=rightStr!=null?rightStr.split(","):new String[]{};
+    private static String [] ergodic(String [] leftStr,String[] rightStr){
+        String [] leftStrs=leftStr!=null?leftStr:new String[]{""};
+        String [] rightStrs=rightStr!=null?rightStr:new String[]{""};
         StringBuilder str=new StringBuilder();
         for(int i=0;i<leftStrs.length;i++){
             for(int j=0;j<rightStrs.length;j++){
                 str.append(leftStrs[i]).append(rightStrs[j]).append(",");
             }
         }
-        return str.toString();
+        return str.toString().split(",");
     }
 
     private static int [] arraySplit(int [] arr){
