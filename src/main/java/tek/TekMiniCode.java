@@ -35,6 +35,12 @@ public class TekMiniCode {
         }
     }
 
+    /**
+     * 组合两个数组的数据
+     * @param leftStr
+     * @param rightStr
+     * @return
+     */
     private static String ergodic(String leftStr,String rightStr){
         String [] leftStrs=leftStr!=null?leftStr.split(","):new String[]{};
         String [] rightStrs=rightStr!=null?rightStr.split(","):new String[]{};
