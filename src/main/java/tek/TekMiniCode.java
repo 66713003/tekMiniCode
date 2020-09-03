@@ -12,27 +12,37 @@ import java.util.*;
  */
 public class TekMiniCode {
 
-    private static Map<Integer,String[]> getLettersMap(){
-        Map<Integer,String[]> map=new HashMap<Integer,String[]>();
-        map.put(2,new String[]{"a","b","c"});
-        map.put(3,new String[]{"d","e","f"});
-        map.put(4,new String[]{"g","h","i"});
-        map.put(5,new String[]{"j","k","l"});
-        map.put(6,new String[]{"m","n","o"});
-        map.put(7,new String[]{"p","q","r","s"});
-        map.put(8,new String[]{"t","u","v"});
-        map.put(9,new String[]{"w","x","y","z"});
-        return map;
+    private static final Map<Integer,String[]> MAP2 = new HashMap<Integer,String[]>(8);
+
+    static{
+        MAP2.put(0,new String[]{});
+        MAP2.put(1,new String[]{});
+        MAP2.put(2,new String[]{"a","b","c"});
+        MAP2.put(3,new String[]{"d","e","f"});
+        MAP2.put(4,new String[]{"g","h","i"});
+        MAP2.put(5,new String[]{"j","k","l"});
+        MAP2.put(6,new String[]{"m","n","o"});
+        MAP2.put(7,new String[]{"p","q","r","s"});
+        MAP2.put(8,new String[]{"t","u","v"});
+        MAP2.put(9,new String[]{"w","x","y","z"});
+    }
+
+    public static Map<Integer,String[]> getLettersMap2(){
+        return Collections.unmodifiableMap(MAP2);
     }
 
     public static void processData(int[] arr){
-        if(arr!=null&&arr.length>0){
-            Map<Integer,String[]> map=getLettersMap();
-            String [] rightStr=null;
-            arr=arraySplit(arr);
-            for(int i=0;i<arr.length;i++){
-                //递归遍历数组相应，进行字母组合
-                rightStr=ergodic(map.get(arr[i]),rightStr);
+        if( arr != null && arr.length > 0 ){
+            Map<Integer,String[]> map = getLettersMap2();
+            int len = arr.length;
+            String [] rightStr = null;
+            for( int i = 0 ; i < arr.length ; i++ ){
+                if(arr[i]>9){
+                    rightStr = ergodic(map.get(arr[i]/10),rightStr);
+                    rightStr = ergodic(map.get(arr[i]%10),rightStr);
+                }else{
+                    rightStr = ergodic(map.get(arr[i]),rightStr);
+                }
             }
             System.out.println(StringUtils.join(Arrays.asList(rightStr)," "));
         }
@@ -54,19 +64,5 @@ public class TekMiniCode {
             }
         }
         return str.toString().split(",");
-    }
-
-    private static int [] arraySplit(int [] arr){
-        //判断数组是否含有大于9的数，并将大于9的数字拆分
-        List<Integer> list=new ArrayList<Integer>();
-        for(int i=0;i<arr.length;i++){
-            if(arr[i]%10>0){
-                if(arr[i]/10>1){list.add(arr[i]/10);}
-                if(arr[i]%10>1){list.add(arr[i]%10);}
-            }else{
-                if(arr[i]>1){list.add(arr[i]);}
-            }
-        }
-        return Arrays.stream(list.toArray(new Integer[list.size()])).mapToInt(Integer::valueOf).toArray();
     }
 }
