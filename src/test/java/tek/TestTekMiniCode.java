@@ -12,5 +12,6 @@ public class TestTekMiniCode {
     @Test
     public void TestTek(){
         TekMiniCode.processData(new int []{2,3});
+        TekMiniCode.processData(new int []{9});
     }
 }

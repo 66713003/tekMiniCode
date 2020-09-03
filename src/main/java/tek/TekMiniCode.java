@@ -12,7 +12,7 @@ import java.util.*;
  */
 public class TekMiniCode {
 
-    private static Map<Integer,String[]> getNumMap(){
+    private static Map<Integer,String[]> getLettersMap(){
         Map<Integer,String[]> map=new HashMap<Integer,String[]>();
         map.put(2,new String[]{"a","b","c"});
         map.put(3,new String[]{"d","e","f"});
@@ -27,10 +27,11 @@ public class TekMiniCode {
 
     public static void processData(int[] arr){
         if(arr!=null&&arr.length>0){
-            Map<Integer,String[]> map=getNumMap();
+            Map<Integer,String[]> map=getLettersMap();
             String [] rightStr=null;
             arr=arraySplit(arr);
             for(int i=0;i<arr.length;i++){
+                //递归遍历数组相应，进行字母组合
                 rightStr=ergodic(map.get(arr[i]),rightStr);
             }
             System.out.println(StringUtils.join(Arrays.asList(rightStr)," "));
@@ -49,7 +50,7 @@ public class TekMiniCode {
         StringBuilder str=new StringBuilder();
         for(int i=0;i<leftStrs.length;i++){
             for(int j=0;j<rightStrs.length;j++){
-                str.append(leftStrs[i]).append(rightStrs[j]).append(",");
+                str.append(rightStrs[j]).append(leftStrs[i]).append(",");
             }
         }
         return str.toString().split(",");
